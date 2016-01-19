@@ -2,12 +2,17 @@ import sqlite3
 
 option = ''
 
+# Creates a connection to the db
 conn = sqlite3.connect('bobbleheads.db')
+# Points to the db used
 c = conn.cursor()
+# Creates a new table if it doesn't exist yet
 c.execute('''CREATE TABLE IF NOT EXISTS Collectors (name TEXT, bobbleheads int, country TEXT)''')
 # c.execute("INSERT INTO collectors VALUES ('Jesse', '10')")
+# Commits table creation
 conn.commit()
 
+# Menu GUI
 def menu():
     print("Welcome to the Bobblehead Collector!\n\nMenu\n1. Add new collector\n2. Add bobbleheads\n"
           "3. Search records\n4. Delete records\n5. View records")
@@ -24,16 +29,19 @@ def menu():
 #     c.execute('''CREATE TABLE IF NOT EXISTS Collectors (name TEXT, bobbleheads int, country TEXT)''')
 #     conn.commit()
 
+# Generic record creation
 def recordInput():
     collector = input("Collector name: ")
     bobbles = input("Bobbleheads: ")
     bobblesInt = int(bobbles)
     country = input("Country: ")
 
+    # Makes a list for the created entry
     recordData = [(collector, bobblesInt, country)]
 
     return recordData
 
+# May need to be converted to int
 def bobbleInput():
     bobbles = input("Bobbles to add: ")
 
@@ -47,6 +55,7 @@ def countryInput():
     country = input("Country: ")
     return country
 
+# Adds new record to the table using generic input method
 def newCollector():
     conn = sqlite3.connect('bobbleheads.db')
     c = conn.cursor()
